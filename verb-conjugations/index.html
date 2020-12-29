@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+      <meta charset="utf-8">
+      <title>Amharic Verb Conjugations</title>
+
+      <link rel="shortcut-icon" href="favicon.png">
+
+    </head>
+    
+    <style>
+        
+        body {
+            
+           margin-top: 25vh; 
+            
+        }
+        
+        h1 {
+            
+            font-size: 75px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            
+        }
+        
+        #subject {
+            
+            float: left;
+            margin-left: 20vw;
+            
+        }
+        
+        #verb {
+            
+            width: 40vw;
+            margin-left: 45vw;
+            
+        }
+        
+        .des-left {
+            
+            margin-left: 20vw;
+            margin-top: 20px;
+            margin-bottom: -15px;
+            
+        }
+        
+        #p-head {
+        
+            margin-top: 25vh;
+            
+        }
+        
+        #goal {
+            
+            color: #0390fc;
+            
+        }
+        
+        p {
+            
+            width: 30vw;
+            margin-left: 20vw;
+            margin-top: 5px;
+            margin-bottom: 0px;
+            text-align: left;
+            font-size: 20px;
+            
+        }
+        
+    </style>
+    
+    <body>
+        
+        <h1 id='subject'>[Subject]</h1>
+        <h1 id='verb'>[Verb]</h1>
+        <h2 class='des-left' >Subject/Verb</h2>
+        <h2 class='des-left' id='goal' >Goal (10): 0% Complete</h2>
+        <p id='p-head'>Press space to generate a new combo.</p>
+        <p>Enter to flip back to infinitive</p>
+        <p>1=present progressive, 2=present affirmative, 3=present negative</p>
+        
+    </body>
+    
+    <script src='fidal.js' ></script>
+    <script>
+        
+        var subjects = ['እኔ', 'አንተ', 'አንቺ', 'እሱ', 'እሷ', 'እኛ', 'እናንተ', 'እነሱ']
+        var verbs = ['መሮጥ', 'መስራት', 'ማየት', 'ማብራት', 'ማጥፋት', 'ማሰብ', 'ማውራት', 'መዋኘት', 'መጀመር', 'ማውጣት', 'መተኛት', 'ማስቀመጥ', 'መጫወት', 'መዝጋት', 'መፈለግ', 'መኖር', 'መስማት', 'መማር', 'ማወቅ', 'መሄድ', 'መጨረስ', 'ማግኘት', 'መብላት', 'መንዳት', 'ማምጣት', 'መቻል', 'መደወል', 'ማሳየት', 'መቀበል', 'መያዝ', 'መንካት']
+        var possible_irregulars = ['መሳል', 'መቁረተ', 'መጻፍ', 'ማንበብ', 'መጠጣት']
+        var terms_studied = 0
+        
+        var vowels = ['a', 'u', 'i', 'ā', 'é', 'e', 'o']
+        
+        var pp_conjugator = function (verb, subject) {
+            
+            var split_verb = verb.split('')
+            var romanized_verb = []
+            
+            for ( var i = 0; i < split_verb.length; i++ ) {
+                for ( var j = 0; j < fidal.length; j+=2 ) {
+                    
+                    if ( fidal[j] == split_verb[i] ) {
+                        romanized_verb.push(fidal[j + 1])
+                    }
+                    
+                }  
+            }
+            
+            var joined_verb = romanized_verb.join('')
+            var new_verb = joined_verb.split('')
+            var conjugated_verb = ['ʼ', 'e', 'y']
+            conjugated_verb.push(new_verb[1])
+            
+            //Type A (Tested)
+            if ( new_verb[new_verb.length - 3] == 'ā' && new_verb[new_verb.length - 2] == 't' && new_verb[new_verb.length - 1] == 'e' ) {
+                
+                for ( var i = 0; i < new_verb.length - 3; i++ ) {
+                    
+                    if ( new_verb[i + 1] == 'e' ) {
+                        new_verb.splice(i + 1, 1, 'a')  
+                    }
+                    
+                }
+                
+                for ( var i = 2; i <= new_verb.length - 4; i++ ) {
+                    conjugated_verb.push(new_verb[i])
+                }
+                
+                if ( subject == 'እኔ' ) {
+                    conjugated_verb.push('ā')
+                    conjugated_verb.push('h')
+                    conjugated_verb.push('u')
+                }
+                if ( subject == 'አንተ' ) {
+                    conjugated_verb.push('ā')
+                    conjugated_verb.push('h')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'አንቺ' ) {
+                    conjugated_verb.push('ā')
+                    conjugated_verb.push('š')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እሱ' ) {
+                    conjugated_verb.push('ā')
+                }
+                if ( subject == 'እሷ' ) {
+                    conjugated_verb.push('ā')
+                    conjugated_verb.push('č')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እኛ' ) {
+                    conjugated_verb.push('ā')
+                    conjugated_verb.push('n')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እናንተ' ) {
+                    conjugated_verb.push('ā')
+                    conjugated_verb.push('č')
+                    conjugated_verb.push('e')
+                    conjugated_verb.push('h')
+                    conjugated_verb.push('u')
+                }
+                if ( subject == 'እነሱ' ) {
+                    conjugated_verb.push('u')
+                }
+                
+            }
+            
+            //Type B (Tested)
+            else if ( (new_verb[new_verb.length - 4] == 'y' || new_verb[new_verb.length - 4] == 'ñ') && new_verb[new_verb.length - 3] == 'a' && new_verb[new_verb.length - 2] == 't' && new_verb[new_verb.length - 1] == 'e' ) {
+            
+                for ( var i = 0; i < new_verb.length; i++ ) {
+                    
+                    if ( new_verb[i + 1] == 'e' ) {
+                        new_verb.splice(i + 1, 1, 'a')  
+                    }
+                    
+                }
+                
+                for ( var i = 2; i <= new_verb.length - 4; i++ ) {
+                    conjugated_verb.push(new_verb[i])
+                }
+                
+                if ( subject == 'እኔ' ) {
+                    conjugated_verb.push('a')
+                    conjugated_verb.push('h')
+                    conjugated_verb.push('u')
+                }
+                if ( subject == 'አንተ' ) {
+                    conjugated_verb.push('a')
+                    conjugated_verb.push('h')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'አንቺ' ) {
+                    conjugated_verb.push('a')
+                    conjugated_verb.push('š')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እሱ' ) {
+                    conjugated_verb.push('a')
+                }
+                if ( subject == 'እሷ' ) {
+                    conjugated_verb.push('a')
+                    conjugated_verb.push('č')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እኛ' ) {
+                    conjugated_verb.push('a')
+                    conjugated_verb.push('n')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እናንተ' ) {
+                    conjugated_verb.push('ā')
+                    conjugated_verb.push('č')
+                    conjugated_verb.push('e')
+                    conjugated_verb.push('h')
+                    conjugated_verb.push('u')
+                }
+                if ( subject == 'እነሱ' ) {
+                    conjugated_verb.push('u')
+                }
+                
+            }
+            
+            //Type C (Tested)
+            else {
+                
+                for ( var i = 2; i < new_verb.length; i++ ) {
+                    if ( new_verb[i] == 'ā' ) {
+                        
+                        conjugated_verb.push('t')
+                        conjugated_verb.push('a')
+                        break
+                        
+                    }
+                }
+                
+                for ( var i = 2; i <= new_verb.length - 2; i++ ) {
+                    conjugated_verb.push(new_verb[i])
+                }
+                
+                if ( subject == 'እኔ' ) {
+                    conjugated_verb.push('e')
+                    conjugated_verb.push('k')
+                    conjugated_verb.push('u')
+                }
+                if ( subject == 'አንተ' ) {
+                    conjugated_verb.push('e')
+                    conjugated_verb.push('k')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'አንቺ' ) {
+                    conjugated_verb.push('e')
+                    conjugated_verb.push('š')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እሱ' ) {
+                    conjugated_verb.push('a')
+                }
+                if ( subject == 'እሷ' ) {
+                    conjugated_verb.push('a')
+                    conjugated_verb.push('č')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እኛ' ) {
+                    conjugated_verb.push('a')
+                    conjugated_verb.push('n')
+                    conjugated_verb.push('e')
+                }
+                if ( subject == 'እናንተ' ) {
+                    conjugated_verb.push('ā')
+                    conjugated_verb.push('č')
+                    conjugated_verb.push('e')
+                    conjugated_verb.push('h')
+                    conjugated_verb.push('u')
+                }
+                if ( subject == 'እነሱ' ) {
+                    conjugated_verb.push('u')
+                }
+                
+            }
+            
+            conjugated_verb = conjugated_verb.join('')
+            var fidal_conj = []
+            
+            for ( var i = 0; i < conjugated_verb.length; i+=2 ) {
+                
+                letter = conjugated_verb[i].concat(conjugated_verb[i + 1])
+                for ( var j = 1; j < fidal.length; j+=2 ) {
+                    
+                    if ( fidal[j] == letter ) {
+                        fidal_conj.push(fidal[j - 1])
+                    }
+                    
+                }
+                
+            }
+            
+            fidal_conj.push('፡')
+            fidal_conj.push('ነ')
+            fidal_conj.push('ው')
+            
+            return fidal_conj.join('');
+            
+        }
+        
+        var present_conjugator = function(verb, subject) {
+            
+            var split_verb = verb.split('')
+            var romanized_verb = []
+            
+            for ( var i = 0; i < split_verb.length; i++ ) {
+                for ( var j = 0; j < fidal.length; j+=2 ) {
+                    
+                    if ( fidal[j] == split_verb[i] ) {
+                        romanized_verb.push(fidal[j + 1])
+                    }
+                    
+                }  
+            }
+            
+            var joined_verb = romanized_verb.join('')
+            var new_verb = joined_verb.split('')
+            var conjugated_verb = []
+            
+            //Type A (Tested)
+            if ( new_verb[new_verb.length - 3] == 'ā' && new_verb[new_verb.length - 2] == 't' && new_verb[new_verb.length - 1] == 'e' ) {
+                
+                new_verb.splice(new_verb.length - 3, 3, 'e')
+                
+            }
+            
+            //Type B (Tested)
+            if ( (new_verb[new_verb.length - 4] == 'y' || new_verb[new_verb.length - 4] == 'ñ') && new_verb[new_verb.length - 3] == 'a' && new_verb[new_verb.length - 2] == 't' && new_verb[new_verb.length - 1] == 'e' ) {
+            
+                new_verb.splice(new_verb.length - 3, 3, 'e')
+                
+            }
+   
+            //expand to base letter
+            for ( var i = 0; i < new_verb.length - 1; i++ ) {
+
+                if ( new_verb[i + 1] == 'e' ) {
+                    new_verb.splice(i + 1, 1, 'a')  
+                }
+
+            }
+
+            //detect ma- or me- verb type
+            new_verb.splice(0, 1)
+            var ma_verb_flag = true
+
+            if ( new_verb[0] != 'ā' ) {
+
+                new_verb.splice(0, 1)
+                ma_verb_flag = false
+
+            }
+
+            //check for repeats
+            var first_cons = 0
+            if ( ma_verb_flag ) {
+                first_cons = 1  
+            }
+
+            for ( var i = first_cons; i < new_verb.length - 2; i+=2 ) {
+
+                if ( new_verb[i + 2] == new_verb[i] ) {
+                    new_verb.splice(i + 2, 2)
+                }
+
+            }
+
+            //delete last vowel sound
+            new_verb.splice(new_verb.length - 1, 1)
+
+            //add to conjugated verb
+            for ( var i = 0; i < new_verb.length; i++ ) {
+                conjugated_verb.push(new_verb[i])
+            }
+
+            if ( subject == 'እኔ' ) {
+                conjugated_verb.push('ā')
+                conjugated_verb.push('l')
+                conjugated_verb.push('a')
+                conjugated_verb.push('h')
+                conjugated_verb.push('u')
+            }
+            if ( subject == 'አንተ' ) {
+
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                conjugated_verb.unshift('t')
+
+                conjugated_verb.push('ā')
+                conjugated_verb.push('l')
+                conjugated_verb.push('a')
+                conjugated_verb.push('h')
+                conjugated_verb.push('e')
+                
+            }
+            if ( subject == 'አንቺ' ) {
+                
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                conjugated_verb.unshift('t')
+
+                if ( conjugated_verb[conjugated_verb.length - 1] == 'd' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'j')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 's' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'š')
+                    conjugated_verb.push('i')
+                    conjugated_verb.push('y')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 'ṭ' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'ċ')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 'l' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'y')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 'y' || conjugated_verb[conjugated_verb.length - 1] == 'ñ' ) {
+                    //do nothing
+                }
+                else {
+                    conjugated_verb.push('i')
+                    conjugated_verb.push('y')
+                }
+
+                conjugated_verb.push('ā')
+                conjugated_verb.push('l')
+                conjugated_verb.push('a')
+                conjugated_verb.push('š')
+                conjugated_verb.push('e')
+
+            }
+            if ( subject == 'እሱ' ) {
+
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                conjugated_verb.unshift('y')
+
+                conjugated_verb.push('ā')
+                conjugated_verb.push('l')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'እሷ' ) {
+
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                conjugated_verb.unshift('t')
+
+                conjugated_verb.push('ā')
+                conjugated_verb.push('l')
+                conjugated_verb.push('a')
+                conjugated_verb.push('č')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'እኛ' ) {
+
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                conjugated_verb.unshift('n')
+                conjugated_verb.unshift('e')
+                conjugated_verb.unshift('ʼ')
+
+                conjugated_verb.push('ā')
+                conjugated_verb.push('l')
+                conjugated_verb.push('e')
+                conjugated_verb.push('n')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'እናንተ' ) {
+
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                conjugated_verb.unshift('t')
+
+                conjugated_verb.push('ā')
+                conjugated_verb.push('l')
+                conjugated_verb.push('ā')
+                conjugated_verb.push('č')
+                conjugated_verb.push('e')
+                conjugated_verb.push('h')
+                conjugated_verb.push('u')
+            }
+            if ( subject == 'እነሱ' ) {
+
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                conjugated_verb.unshift('y')
+
+                conjugated_verb.push('ā')
+                conjugated_verb.push('l')
+                conjugated_verb.push('u')
+                
+            }
+            
+            conjugated_verb = conjugated_verb.join('')
+            var fidal_conj = []
+            
+            for ( var i = 0; i < conjugated_verb.length; i+=2 ) {
+                
+                letter = conjugated_verb[i].concat(conjugated_verb[i + 1])
+                for ( var j = 1; j < fidal.length; j+=2 ) {
+                    
+                    if ( fidal[j] == letter ) {
+                        fidal_conj.push(fidal[j - 1])
+                    }
+                    
+                }
+                
+            }
+            
+            return fidal_conj.join('')
+            
+        }
+        
+        var present_neg_conjugator = function(verb, subject) {
+            
+            var split_verb = verb.split('')
+            var romanized_verb = []
+            
+            for ( var i = 0; i < split_verb.length; i++ ) {
+                for ( var j = 0; j < fidal.length; j+=2 ) {
+                    
+                    if ( fidal[j] == split_verb[i] ) {
+                        romanized_verb.push(fidal[j + 1])
+                    }
+                    
+                }  
+            }
+            
+            var joined_verb = romanized_verb.join('')
+            var new_verb = joined_verb.split('')
+            var conjugated_verb = []
+            
+            //Type A (Tested)
+            var at_verb_flag = false
+            if ( new_verb[new_verb.length - 3] == 'ā' && new_verb[new_verb.length - 2] == 't' && new_verb[new_verb.length - 1] == 'e' ) {
+                
+                new_verb.splice(new_verb.length - 3, 3, 'e')
+                at_verb_flag = true
+                
+            }
+            
+            //Type B (Tested)
+            if ( (new_verb[new_verb.length - 4] == 'y' || new_verb[new_verb.length - 4] == 'ñ') && new_verb[new_verb.length - 3] == 'a' && new_verb[new_verb.length - 2] == 't' && new_verb[new_verb.length - 1] == 'e' ) {
+            
+                new_verb.splice(new_verb.length - 3, 3, 'e')
+                
+            }
+   
+            //expand to base letter
+            for ( var i = 0; i < new_verb.length - 1; i++ ) {
+
+                if ( new_verb[i + 1] == 'e' ) {
+                    new_verb.splice(i + 1, 1, 'a')  
+                }
+
+            }
+
+            //detect ma- or me- verb type
+            new_verb.splice(0, 1)
+            var ma_verb_flag = true
+
+            if ( new_verb[0] != 'ā' ) {
+
+                new_verb.splice(0, 1)
+                ma_verb_flag = false
+
+            }
+
+            //check for repeats
+            var first_cons = 0
+            if ( ma_verb_flag ) {
+                first_cons = 1  
+            }
+
+            for ( var i = first_cons; i < new_verb.length - 2; i+=2 ) {
+
+                if ( new_verb[i + 2] == new_verb[i] ) {
+                    new_verb.splice(i + 2, 2)
+                }
+
+            }
+
+            //delete last vowel sound
+            new_verb.splice(new_verb.length - 1, 1)
+
+            //add to conjugated verb
+            for ( var i = 0; i < new_verb.length; i++ ) {
+                conjugated_verb.push(new_verb[i])
+            }
+
+            if ( subject == 'እኔ' ) {
+                
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                
+                conjugated_verb.unshift('l')
+                conjugated_verb.unshift('a')
+                conjugated_verb.unshift('ʼ')
+                
+                if ( at_verb_flag ) {
+                    conjugated_verb.push('ā')
+                }
+                else {
+                    conjugated_verb.push('e')
+                }
+                
+                conjugated_verb.push('m')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'አንተ' ) {
+
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                
+                conjugated_verb.unshift('t')
+                conjugated_verb.unshift('a')
+                conjugated_verb.unshift('ʼ')
+                
+                if ( at_verb_flag ) {
+                    conjugated_verb.push('ā')
+                }
+                else {
+                    conjugated_verb.push('e')
+                }
+                
+                conjugated_verb.push('m')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'አንቺ' ) {
+                
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                
+                conjugated_verb.unshift('t')
+                conjugated_verb.unshift('a')
+                conjugated_verb.unshift('ʼ')
+
+                if ( conjugated_verb[conjugated_verb.length - 1] == 'd' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'j')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 's' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'š')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 'ṭ' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'ċ')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 'l' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'y')
+                }
+               
+                conjugated_verb.push('i')
+                conjugated_verb.push('m')
+                conjugated_verb.push('e')
+
+            }
+            if ( subject == 'እሱ' ) {
+                
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+
+                conjugated_verb.unshift('y')
+                conjugated_verb.unshift('a')
+                conjugated_verb.unshift('ʼ')
+                
+                if ( at_verb_flag ) {
+                    conjugated_verb.push('ā')
+                }
+                else {
+                    conjugated_verb.push('e')
+                }
+                
+                conjugated_verb.push('m')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'እሷ' ) {
+                
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+
+                conjugated_verb.unshift('t')
+                conjugated_verb.unshift('a')
+                conjugated_verb.unshift('ʼ')
+                
+                if ( at_verb_flag ) {
+                    conjugated_verb.push('ā')
+                }
+                else {
+                    conjugated_verb.push('e')
+                }
+                
+                conjugated_verb.push('m')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'እኛ' ) {
+                
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+
+                conjugated_verb.unshift('n')
+                conjugated_verb.unshift('a')
+                conjugated_verb.unshift('ʼ')
+                
+                if ( at_verb_flag ) {
+                    conjugated_verb.push('ā')
+                }
+                else {
+                    conjugated_verb.push('e')
+                }
+                
+                conjugated_verb.push('m')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'እናንተ' ) {
+                
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+                
+                conjugated_verb.unshift('t')
+                conjugated_verb.unshift('a')
+                conjugated_verb.unshift('ʼ')
+
+                conjugated_verb.push('u')
+                conjugated_verb.push('m')
+                conjugated_verb.push('e')
+            }
+            if ( subject == 'እነሱ' ) {
+                
+                if ( !ma_verb_flag ) {
+                    conjugated_verb.unshift('e')
+                }
+
+                conjugated_verb.unshift('y')
+                conjugated_verb.unshift('a')
+                conjugated_verb.unshift('ʼ')
+                
+                conjugated_verb.push('u')
+                conjugated_verb.push('m')
+                conjugated_verb.push('e')
+                
+            }
+            
+            conjugated_verb = conjugated_verb.join('')
+            var fidal_conj = []
+            
+            for ( var i = 0; i < conjugated_verb.length; i+=2 ) {
+                
+                letter = conjugated_verb[i].concat(conjugated_verb[i + 1])
+                for ( var j = 1; j < fidal.length; j+=2 ) {
+                    
+                    if ( fidal[j] == letter ) {
+                        fidal_conj.push(fidal[j - 1])
+                    }
+                    
+                }
+                
+            }
+            
+            return fidal_conj.join('')
+            
+        }
+        
+        var random_subject = subjects[Math.floor(Math.random() * subjects.length)] 
+        var random_verb = verbs[Math.floor(Math.random() * verbs.length)] 
+        
+        var html_subject = document.getElementById('subject')
+        var html_verb = document.getElementById('verb')
+        
+        html_subject.innerHTML = random_subject
+        html_verb.innerHTML = random_verb
+        
+        document.body.onkeyup = function(e){
+            
+            if ( e.keyCode == 32 ){
+                
+                random_subject = subjects[Math.floor(Math.random() * subjects.length)] 
+                random_verb = verbs[Math.floor(Math.random() * verbs.length)] 
+
+                html_subject.innerHTML = random_subject
+                html_verb.innerHTML = random_verb
+                html_verb.style.color = '#000000'
+                
+                terms_studied++
+                flag = ''
+                if ( terms_studied >= 10 ) {
+                    flag = '⚑ '
+                }
+                document.getElementById('goal').innerHTML = flag+'Goal (10): '+terms_studied * (100/10)+'% Complete'
+                
+            }
+            
+            if ( e.keyCode == 13 ) {
+                
+                html_verb.innerHTML = random_verb
+                html_verb.style.color = '#000000'
+                
+            }
+            
+            if ( e.keyCode == 49 ){
+            
+                html_verb.innerHTML = pp_conjugator(random_verb, random_subject)
+                html_verb.style.color = '#22ee44'
+                
+            }
+            
+            if ( e.keyCode == 50 ){
+            
+                html_verb.innerHTML = present_conjugator(random_verb, random_subject)
+                html_verb.style.color = '#22ee44'
+                
+            }
+            
+            if ( e.keyCode == 51 ){
+            
+                html_verb.innerHTML = present_neg_conjugator(random_verb, random_subject)
+                html_verb.style.color = '#22ee44'
+                
+            }
+            
+        }
+        
+    </script>
+    
+</html>
