@@ -382,8 +382,14 @@
             for ( var i = 0; i < new_verb.length; i++ ) {
                 conjugated_verb.push(new_verb[i])
             }
+            
 
             if ( subject == 'እኔ' ) {
+                
+                if ( ma_verb_flag ) {
+                    conjugated_verb.unshift('ʼ')
+                }
+                
                 conjugated_verb.push('ā')
                 conjugated_verb.push('l')
                 conjugated_verb.push('a')
