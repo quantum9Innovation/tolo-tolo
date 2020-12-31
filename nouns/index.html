@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+      <meta charset="utf-8">
+      <title>Amharic Noun Suffixes</title>
+
+      <link rel='shortcut icon' href='https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' >
+
+    </head>
+    
+    <style>
+        
+        body {
+            
+           margin-top: 25vh; 
+            
+        }
+        
+        h1 {
+            
+            font-size: 60px;
+            margin-top: 0px;
+            margin-bottom: 0px;
+            
+        }
+        
+        #noun {
+            
+            float: left;
+            margin-left: 20vw;
+            
+        }
+        
+        #answer {
+            
+            width: 40vw;
+            margin-left: 45vw;
+            
+        }
+        
+        .des-left {
+            
+            margin-left: 20vw;
+            margin-top: 20px;
+            margin-bottom: -15px;
+            
+        }
+        
+        #p-head {
+        
+            margin-top: 25vh;
+            
+        }
+        
+        #goal {
+            
+            color: #0390fc;
+            
+        }
+
+        #info {
+
+            width: 25vw;
+            color: white;
+
+        }
+        
+        p {
+            
+            width: 30vw;
+            margin-left: 20vw;
+            margin-top: 5px;
+            margin-bottom: 0px;
+            text-align: left;
+            font-size: 20px;
+            
+        }
+        
+    </style>
+    
+    <body>
+        
+        <h1 id='noun'>[Noun]</h1>
+        <h1 id='answer'>...</h1>
+        <h2 class='des-left' >Noun/Answer</h2>
+        <h2 class='des-left' id='info' >H</h2>
+        <h2 class='des-left' id='goal' >Goal (10): 0% Complete</h2>
+        <p id='p-head'>Press space to generate a new combo.</p>
+        <p>1 to reveal answer. Enter to hide answer again.</p>
+        
+    </body>
+    
+    <script src='../fidal.js' ></script>
+    <script src='../fidal-vowels.js' ></script>
+    <script src='nouns.js' ></script>
+    <script src='modifiers.js' ></script>
+
+    <script>
+
+        var possessives = ['የእኔ', 'የአንተ', 'የአንቺ', 'የእሱ', 'የእሷ', 'የእኛ', 'የእናንተ', 'የእነሱ']
+        var possible_irregulars = []
+        var terms_studied = 0
+
+        var add_noun_suffixes = function(noun, modifier, possessive, definite, object, plural) {
+            
+            //romanization
+            var split_noun = noun.split('')
+            var romanized_noun = []
+            
+            for ( var i = 0; i < split_noun.length; i++ ) {
+                for ( var j = 0; j < fidal.length; j+=2 ) {
+                    
+                    if ( fidal[j] == split_noun[i] ) {
+                        romanized_noun.push(fidal[j + 1])
+                    }
+                    
+                }  
+            }
+            
+            var joined_noun = romanized_noun.join('')
+            var new_noun = joined_noun.split('')
+
+            if ( modifier ) {
+                var split_modifier = modifier.split('')
+                var romanized_modifier = []
+                
+                for ( var i = 0; i < split_modifier.length; i++ ) {
+                    for ( var j = 0; j < fidal.length; j+=2 ) {
+                        
+                        if ( fidal[j] == split_modifier[i] ) {
+                            romanized_modifier.push(fidal[j + 1])
+                        }
+                        
+                    }  
+                }
+                
+                var joined_modifier = romanized_modifier.join('')
+                var new_modifier = joined_modifier.split('')
+            }
+
+            //suffix additions
+            
+            //plurals
+
+            if ( plural ) {
+
+                //after consonant
+                if ( new_noun[new_noun.length - 1] == 'e' ) {
+                    
+                    new_noun.splice(new_noun.length - 1, 1)
+                    new_noun.push('o')
+                    new_noun.push('č')
+                    new_noun.push('e')
+                    
+                }
+
+                //after vowel
+                else {
+
+                    new_noun.push('w')
+                    new_noun.push('o')
+                    new_noun.push('č')
+                    new_noun.push('e')
+
+                }
+
+            }
+
+            //possessives
+
+            if ( random_possessive ) {
+
+                //after consonant
+                if ( new_noun[new_noun.length - 1] == 'e' ) {
+
+                    new_noun.splice(new_noun.length - 1, 1)
+
+                    if ( possessive == 'የእኔ ' ){
+                        new_noun.push('é')
+                    }
+                    if ( possessive == 'የአንተ ' ){
+                        new_noun.push('e')
+                        new_noun.push('h')
+                        new_noun.push('e')
+                    }
+                    if ( possessive == 'የአንቺ ' ){
+                        new_noun.push('e')
+                        new_noun.push('š')
+                        new_noun.push('e')
+                    }
+                    if ( possessive == 'የእሱ ' ){
+                        new_noun.push('u')
+                    }
+                    if ( possessive == 'የእሷ ' ){
+                        new_noun.push('e')
+                        new_noun.push('w')
+                        new_noun.push('ā')
+                    }
+                    if ( possessive == 'የእኛ ' ){
+                        new_noun.push('ā')
+                        new_noun.push('č')
+                        new_noun.push('e')
+                        new_noun.push('n')
+                        new_noun.push('e')
+                    }
+                    if ( possessive == 'የእናንተ ' ){
+                        new_noun.push('ā')
+                        new_noun.push('č')
+                        new_noun.push('e')
+                        new_noun.push('h')
+                        new_noun.push('u')
+                    }
+                    if ( possessive == 'የእነሱ ' ){
+                        new_noun.push('ā')
+                        new_noun.push('č')
+                        new_noun.push('a')
+                        new_noun.push('w')
+                        new_noun.push('e')
+                    }
+
+                }
+                
+                //after vowel
+                else {
+
+                    if ( possessive == 'የእኔ ' ){
+                        new_noun.push('y')
+                        new_noun.push('é')
+                    }
+                    if ( possessive == 'የአንተ ' ){
+                        new_noun.push('h')
+                        new_noun.push('e')
+                    }
+                    if ( possessive == 'የአንቺ ' ){
+                        new_noun.push('š')
+                        new_noun.push('e')
+                    }
+                    if ( possessive == 'የእሱ ' ){
+                        new_noun.push('w')
+                        new_noun.push('e')
+                    }
+                    if ( possessive == 'የእሷ ' ){
+                        new_noun.push('w')
+                        new_noun.push('ā')
+                    }
+                    if ( possessive == 'የእኛ ' ){
+                        new_noun.push('ʼ')
+                        new_noun.push('ā')
+                        new_noun.push('č')
+                        new_noun.push('e')
+                        new_noun.push('n')
+                        new_noun.push('e')
+                    }
+                    if ( possessive == 'የእናንተ ' ){
+                        new_noun.push('ʼ')
+                        new_noun.push('ā')
+                        new_noun.push('č')
+                        new_noun.push('e')
+                        new_noun.push('h')
+                        new_noun.push('u')
+                    }
+                    if ( possessive == 'የእነሱ ' ){
+                        new_noun.push('ʼ')
+                        new_noun.push('ā')
+                        new_noun.push('č')
+                        new_noun.push('a')
+                        new_noun.push('w')
+                        new_noun.push('e')
+                    }
+
+                }
+
+            }
+
+            //definite articles
+
+            if ( definite ) {
+
+                //add to modifier
+                if ( random_possessive ) {
+
+                    //after consonant
+                    if ( new_modifier[new_modifier.length - 1] == 'e' ) {
+                        new_modifier.splice(new_modifier.length - 1, 1)
+                        new_modifier.push('u')
+                    }
+
+                    //after vowel
+                    else {
+                        new_modifier.push('w')
+                        new_modifier.push('e')
+                    }
+
+                }
+
+                //add to noun
+                else {
+
+                    //after consonant
+                    if ( new_noun[new_noun.length - 1] == 'e' ) {
+                        new_noun.splice(new_noun.length - 1, 1)
+                        new_noun.push('u')
+                    }
+
+                    //after vowel
+                    else {
+                        new_noun.push('w')
+                        new_noun.push('e')
+                    }
+
+                }
+
+            }
+
+            //specific direct object suffixes
+
+            if ( object && (definite || random_possessive)) {
+
+                //with modifier
+                if ( modifier ) {
+
+                    new_modifier.push('n')
+                    new_modifier.push('e')
+
+                }
+
+                //with noun
+                else {
+
+                    new_noun.push('n')
+                    new_noun.push('e')
+
+                }
+
+            }
+
+            //deromanization
+            //console.log(new_noun)
+            //for debugging ^
+
+            var noun_out = []
+            
+            for ( var i = 0; i < new_noun.length; i+=2 ) {
+                
+                letter = new_noun[i].concat(new_noun[i + 1])
+                for ( var j = 1; j < fidal.length; j+=2 ) {
+                    
+                    if ( fidal[j] == letter ) {
+                        noun_out.push(fidal[j - 1])
+                    }
+                    
+                }
+                
+            }
+
+            if ( modifier ) {
+                var modifier_out = []
+                
+                for ( var i = 0; i < new_modifier.length; i+=2 ) {
+                    
+                    letter = new_modifier[i].concat(new_modifier[i + 1])
+                    for ( var j = 1; j < fidal.length; j+=2 ) {
+                        
+                        if ( fidal[j] == letter ) {
+                            modifier_out.push(fidal[j - 1])
+                        }
+                        
+                    }
+                    
+                }
+            }
+
+            noun_out = noun_out.join('')
+            if ( modifier ) {
+                modifier_out = modifier_out.join('')
+            }
+
+            //return    
+            if ( modifier ) {
+                return modifier_out + '፡' + noun_out
+            }
+            else {
+                return noun_out
+            }
+
+        }
+
+        var random_noun = nouns[Math.floor(Math.random() * nouns.length)]
+        var use_modifier = Math.round(Math.random())
+        var random_modifier = ''
+        if ( use_modifier == 1 ) {
+            random_modifier = modifiers[Math.floor(Math.random() * modifiers.length)] + '፡'
+        }
+        var use_possessive = Math.round(Math.random())
+        var random_possessive = ''
+        if ( use_possessive == 1 ) {
+            random_possessive = possessives[Math.floor(Math.random() * possessives.length)] + ' '
+        }
+        var use_definite = Math.round(Math.random())
+        var definite = ''
+        if ( use_definite == 1 && !(use_possessive && !use_modifier)) {
+            definite = 'def '
+        }
+        var use_object = Math.round(Math.random())
+        var object = ''
+        if ( use_object == 1 ) {
+            object = 'obj '
+        }
+        var use_plural = Math.round(Math.random())
+        var plural = ''
+        if ( use_plural == 1 ) {
+            plural = 'pl '
+        }
+
+        var html_noun = document.getElementById('noun')
+        var html_answer = document.getElementById('answer')
+        var html_info = document.getElementById('info')
+        
+        html_noun.innerHTML = random_modifier + random_noun
+        var info_r = Math.random() * 200
+        var info_g = Math.random() * 200
+        var info_b = Math.random() * 200
+        html_info.style.backgroundColor = 'rgb('+info_r+','+info_g+','+info_b+')'
+        html_info.innerHTML = random_possessive + definite + object + plural
+        
+        document.body.onkeyup = function(e){
+            
+            if ( e.keyCode == 32 ){
+                
+                random_noun = nouns[Math.floor(Math.random() * nouns.length)]
+                use_modifier = Math.round(Math.random())
+                random_modifier = ''
+                if ( use_modifier == 1 ) {
+                    random_modifier = modifiers[Math.floor(Math.random() * modifiers.length)] + '፡'
+                }
+                use_possessive = Math.round(Math.random())
+                random_possessive = ''
+                if ( use_possessive == 1 ) {
+                    random_possessive = possessives[Math.floor(Math.random() * possessives.length)] + ' '
+                }
+                use_definite = Math.round(Math.random())
+                definite = ''
+                if ( use_definite == 1 && !(use_possessive && !use_modifier) ) {
+                    definite = 'def '
+                }
+                use_object = Math.round(Math.random())
+                object = ''
+                if ( use_object == 1 ) {
+                    object = 'obj '
+                }
+                use_plural = Math.round(Math.random())
+                plural = ''
+                if ( use_plural == 1 ) {
+                    plural = 'pl '
+                }
+
+                html_noun.innerHTML = random_modifier + random_noun
+
+                var info_r = Math.random() * 200
+                var info_g = Math.random() * 200
+                var info_b = Math.random() * 200
+                html_info.style.backgroundColor = 'rgb('+info_r+','+info_g+','+info_b+')'
+                html_info.innerHTML = random_possessive + definite + object + plural
+
+                html_answer.innerHTML = '...'
+                html_answer.style.color = '#000000'
+                
+                terms_studied++
+                flag = ''
+                if ( terms_studied >= 10 ) {
+                    flag = '⚑ '
+                }
+                document.getElementById('goal').innerHTML = flag+'Goal (10): '+terms_studied * (100/10)+'% Complete'
+                
+            }
+            
+            if ( e.keyCode == 13 ) {
+                
+                html_answer.innerHTML = '...'
+                html_answer.style.color = '#000000'
+                
+            }
+
+            if ( e.keyCode == 49 ) {
+
+                var param_mod = false
+                var param_poss = false
+                var param_def = false
+                var param_obj = false
+                var param_pl = false
+
+                if ( random_modifier != '' ) {
+                    param_mod = random_modifier //not required
+                }
+                if ( random_possessive != '' ) {
+                    param_poss = random_possessive //done
+                } 
+                if ( definite != '' ) {
+                    param_def = true //done
+                }
+                if ( object != '' ) {
+                    param_obj = true
+                }
+                if ( plural != '' ) {
+                    param_pl = true //done
+                }
+
+                html_answer.innerHTML = add_noun_suffixes(random_noun, random_modifier, param_poss, param_def, param_obj, param_pl)
+                html_answer.color = 'rgb('+info_r+','+info_g+','+info_b+')'
+
+            }
+            
+        }
+
+    </script>
+    
+</html>
