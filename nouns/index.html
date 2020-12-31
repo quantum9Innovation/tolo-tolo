@@ -82,7 +82,7 @@
     <body>
         
         <h1 id='noun'>[Noun]</h1>
-        <h1 id='answer'>...</h1>
+        <h1 id='answer'>     ...</h1>
         <h2 class='des-left' >Noun/Answer</h2>
         <h2 class='des-left' id='info' >H</h2>
         <h2 class='des-left' id='goal' >Goal (10): 0% Complete</h2>
@@ -463,7 +463,7 @@
                 html_info.style.backgroundColor = 'rgb('+info_r+','+info_g+','+info_b+')'
                 html_info.innerHTML = random_possessive + definite + object + plural
 
-                html_answer.innerHTML = '...'
+                html_answer.innerHTML = '     ...'
                 html_answer.style.color = '#000000'
                 
                 terms_studied++
@@ -477,7 +477,7 @@
             
             if ( e.keyCode == 13 ) {
                 
-                html_answer.innerHTML = '...'
+                html_answer.innerHTML = '     ...'
                 html_answer.style.color = '#000000'
                 
             }
@@ -507,7 +507,7 @@
                 }
 
                 html_answer.innerHTML = add_noun_suffixes(random_noun, random_modifier, param_poss, param_def, param_obj, param_pl)
-                html_answer.color = 'rgb('+info_r+','+info_g+','+info_b+')'
+                html_answer.style.color = '#00bb00'
 
             }
             
