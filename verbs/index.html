@@ -76,7 +76,7 @@
         
         <h1 id='subject'>[Subject]</h1>
         <h1 id='verb'>[Verb]</h1>
-        <h2 class='des-left' >Subject/Verb</h2>
+        <h2 class='des-left' >Subject/Verb - <a href='https://github.com/quantum9Innovation/tolo-tolo/issues/new?assignees=quantum9Innovation&labels=bug%2C+good+first+issue&template=wrong-conjugation-issue.md&title=Conjugation+Failed'>Submit an issue</a></h2>
         <h2 class='des-left' id='goal' >Goal (10): 0% Complete</h2>
         <p id='p-head'>Press space to generate a new combo.</p>
         <p>Enter to flip back to infinitive</p>
@@ -84,15 +84,15 @@
         
     </body>
     
-    <script src='fidal.js' ></script>
+    <script src='../fidal.js' ></script>
+    <script src='../fidal-vowels.js' ></script>
     <script src='verbs.js' ></script>
+
     <script>
         
         var subjects = ['እኔ', 'አንተ', 'አንቺ', 'እሱ', 'እሷ', 'እኛ', 'እናንተ', 'እነሱ']
         var possible_irregulars = ['መሳል', 'መቁረተ', 'መጻፍ', 'ማንበብ', 'መጠጣት']
         var terms_studied = 0
-        
-        var vowels = ['a', 'u', 'i', 'ā', 'é', 'e', 'o']
         
         var pp_conjugator = function (verb, subject) {
             
