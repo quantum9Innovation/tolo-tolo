@@ -91,7 +91,8 @@
     <script>
         
         var subjects = ['እኔ', 'አንተ', 'አንቺ', 'እሱ', 'እሷ', 'እኛ', 'እናንተ', 'እነሱ']
-        var possible_irregulars = ['መሳል', 'መቁረተ', 'መጻፍ', 'ማንበብ', 'መጠጣት']
+        var possible_irregulars = ['መቁረተ', 'መጻፍ', 'ማንበብ', 'መጠጣት']
+        var confirmed_irregulars = ['መሳል']
         var terms_studied = 0
         
         var pp_conjugator = function (verb, subject) {
@@ -117,9 +118,17 @@
             //Type A (Tested)
             if ( new_verb[new_verb.length - 3] == 'ā' && new_verb[new_verb.length - 2] == 't' && new_verb[new_verb.length - 1] == 'e' ) {
                 
+                var mas_verb_flag = false
+                if ( new_verb[1] == 'ā' && new_verb[2] == 's' ) {
+                    mas_verb_flag = true
+                }
+
                 for ( var i = 0; i < new_verb.length - 3; i++ ) {
                     
-                    if ( new_verb[i + 1] == 'e' ) {
+                    if ( new_verb[i + 1] == 'e' && i > 2 ) {
+                        new_verb.splice(i + 1, 1, 'a')  
+                    }
+                    else if ( new_verb[i + 1] == 'e' && !mas_verb_flag ) {
                         new_verb.splice(i + 1, 1, 'a')  
                     }
                     
@@ -341,10 +350,18 @@
                 
             }
    
+            var mas_verb_flag = false
+            if ( new_verb[1] == 'ā' && new_verb[2] == 's' ) {
+                mas_verb_flag = true
+            }
+
             //expand to base letter
             for ( var i = 0; i < new_verb.length - 1; i++ ) {
 
-                if ( new_verb[i + 1] == 'e' ) {
+                if ( new_verb[i + 1] == 'e' && i > 2 ) {
+                    new_verb.splice(i + 1, 1, 'a')  
+                }
+                else if ( new_verb[i + 1] == 'e' && !mas_verb_flag ) {
                     new_verb.splice(i + 1, 1, 'a')  
                 }
 
@@ -568,10 +585,18 @@
                 
             }
    
+            var mas_verb_flag = false
+            if ( new_verb[1] == 'ā' && new_verb[2] == 's' ) {
+                mas_verb_flag = true
+            }
+
             //expand to base letter
             for ( var i = 0; i < new_verb.length - 1; i++ ) {
 
-                if ( new_verb[i + 1] == 'e' ) {
+                if ( new_verb[i + 1] == 'e' && i > 2 ) {
+                    new_verb.splice(i + 1, 1, 'a')  
+                }
+                else if ( new_verb[i + 1] == 'e' && !mas_verb_flag ) {
                     new_verb.splice(i + 1, 1, 'a')  
                 }
 
