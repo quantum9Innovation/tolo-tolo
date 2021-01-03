@@ -1,6 +1,6 @@
 fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
 ለ la ሉ lu ሊ li ላ lā ሌ lé ል le ሎ lo \
-ሐ ḥa ሑ ḥu ሒ ḥi ሓ ḥā ሔ ḥé ሕ ḥe ሖ ḥo \
+ሐ Ha ሑ Hu ሒ Hi ሓ Hā ሔ Hé ሕ He ሖ Ho \
 መ ma ሙ mu ሚ mi ማ mā ሜ mé ም me ሞ mo \
 ሠ śa ሡ śu ሢ śi ሣ śā ሤ śé ሥ śe ሦ śo \
 ረ ra ሩ ru ሪ ri ራ rā ሬ ré ር re ሮ ro \
@@ -24,10 +24,10 @@ fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
 ደ da ዱ du ዲ di ዳ dā ዴ dé ድ de ዶ do \
 ጀ ja ጁ ju ጂ ji ጃ jā ጄ jé ጅ je ጆ jo \
 ገ ga ጉ gu ጊ gi ጋ gā ጌ gé ግ ge ጎ go \
-ጠ ṭa ጡ ṭu ጢ ṭi ጣ ṭā ጤ ṭé ጥ ṭe ጦ ṭo \
+ጠ Ta ጡ Tu ጢ Ti ጣ Tā ጤ Té ጥ Te ጦ To \
 ጨ ċa ጩ ċu ጪ ċi ጫ ċā ጬ ċé ጭ ċe ጮ ċo \
-ጰ p̣a ጱ p̣u ጲ p̣i ጳ p̣ā ጴ p̣é ጵ p̣e ጶ p̣o \
-ጸ ṣa ጹ ṣu ጺ ṣi ጻ ṣā ጼ ṣé ጽ ṣe ጾ ṣo \
+ጰ Pa ጱ Pu ጲ Pi ጳ Pā ጴ Pé ጵ Pe ጶ Po \
+ጸ Sa ጹ Su ጺ Si ጻ Sā ጼ Sé ጽ Se ጾ So \
 ፀ ṡa ፁ ṡu ፂ ṡi ፃ ṡā ፄ ṡé ፅ ṡe ፆ ṡo \
 ፈ fa ፉ fu ፊ fi ፋ fā ፌ fé ፍ fe ፎ fo \
 ፐ pa ፑ pu ፒ pi ፓ pā ፔ pé ፕ pe ፖ po \
