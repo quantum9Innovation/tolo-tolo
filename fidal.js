@@ -1,6 +1,6 @@
 fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
 ለ la ሉ lu ሊ li ላ lā ሌ lé ል le ሎ lo \
-ሐ Ha ሑ Hu ሒ Hi ሓ Hā ሔ Hé ሕ He ሖ Ho \
+ሐ ca ሑ cu ሒ ci ሓ cā ሔ cé ሕ ce ሖ co \
 መ ma ሙ mu ሚ mi ማ mā ሜ mé ም me ሞ mo \
 ሠ śa ሡ śu ሢ śi ሣ śā ሤ śé ሥ śe ሦ śo \
 ረ ra ሩ ru ሪ ri ራ rā ሬ ré ር re ሮ ro \
