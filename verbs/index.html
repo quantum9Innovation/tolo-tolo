@@ -238,25 +238,12 @@
             //Type C (Tested)
             else {
                 
-                //check for repeats
-                var repeat_flag = false
-                for ( var i = 2; i < new_verb.length - 2; i+=2 ) {
-
-                    if ( new_verb[i + 2] == new_verb[i] ) {
-                        repeat_flag = true
+                for ( var i = 0; i < new_verb.length - 2; i++ ) {
+                
+                    if ( new_verb[i + 1] == 'e' ) {
+                        new_verb.splice(i + 1, 1, 'a')  
                     }
-
-                }
-
-                //expand to base letter
-                if ( repeat_flag ) {
-                    for ( var i = 0; i < new_verb.length - 2; i++ ) {
-                    
-                        if ( new_verb[i + 1] == 'e' ) {
-                            new_verb.splice(i + 1, 1, 'a')  
-                        }
-                    
-                    }
+                
                 }
 
                 for ( var i = 2; i < new_verb.length; i++ ) {
