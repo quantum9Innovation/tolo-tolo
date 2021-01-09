@@ -91,7 +91,7 @@
     <script>
         
         var subjects = ['እኔ', 'አንተ', 'አንቺ', 'እሱ', 'እሷ', 'እኛ', 'እናንተ', 'እነሱ']
-        var possible_irregulars = ['መቁረተ', 'መጻፍ', 'ማንበብ', 'መጠጣት']
+        var possible_irregulars = ['መቁረተ', 'መጻፍ']
         var confirmed_irregulars = ['መሳል', 'ማወቅ']
         var terms_studied = 0
         
@@ -466,8 +466,16 @@
                 else if ( conjugated_verb[conjugated_verb.length - 1] == 'T' ) {
                     conjugated_verb.splice(conjugated_verb.length - 1, 1, 'ċ')
                 }
-                else if ( conjugated_verb[conjugated_verb.length - 1] == 'l' ) {
-                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'y')
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 't' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'č')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 'z' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'ž')
+                }
+                else if ( conjugated_verb[conjugated_verb.length - 1] == 'n' ) {
+                    conjugated_verb.splice(conjugated_verb.length - 1, 1, 'ñ')
+                    conjugated_verb.push('i')
+                    conjugated_verb.push('y')
                 }
                 else if ( conjugated_verb[conjugated_verb.length - 1] == 'y' || conjugated_verb[conjugated_verb.length - 1] == 'ñ' ) {
                     //do nothing
