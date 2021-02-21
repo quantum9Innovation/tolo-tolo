@@ -5,6 +5,6 @@
         - The last two suffixes replace the last vowel if it exists
 */
 
-imperfective = ["እኔ", "e", "āl'ahu", "አንተ", "te", "āl'ahe", "አንቺ", "te", "iyal'aše", "እሱ", "ye", "āle", "እሷ", "te", "āl'ače", "እኛ", "in'e", "āl'ane", "እናንተ", "te", "āl'āč'ehu", "እነሱ", "ye", "al'u"]
+var imperfective = ["እኔ", "e", "āl.ahu", "አንተ", "te", "āl.ahe", "አንቺ", "te", "iyal.aše", "እሱ", "ye", "āle", "እሷ", "te", "āl.ače", "እኛ", "in.e", "āl.ane", "እናንተ", "te", "āl.āč.ehu", "እነሱ", "ye", "al.u"]
 
-perfective = ["እኔ", "ehu, eku", "አንተ", "eh, ek", "አንቺ", "eš", "እሱ", "a", "እሷ", "ač, eč", "እኛ", "en", "እናንተ", "ač'ehu", "እነሱ", "u"]
+var perfective = ["እኔ", "ehu, eku", "አንተ", "eh, ek", "አንቺ", "eš", "እሱ", "a", "እሷ", "ač, eč", "እኛ", "en", "እናንተ", "ač.ehu", "እነሱ", "u"]

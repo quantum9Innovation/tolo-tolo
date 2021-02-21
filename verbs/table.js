@@ -16,7 +16,7 @@
         - To conjugate these types of verbs, simply add -ā to the corresponding stem of a verb in ma-
 */
 
-table = 'ma12a3 1a22a3 1a23 \
+var table = 'ma12a3 1a22a3 1a23 \
 ma1a22a3 1a22a3 1a22e3 \
 ma12āt 1a22ā 1a2 \
 ma1a22āt 1a22ā 1a22 \

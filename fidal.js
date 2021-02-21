@@ -1,4 +1,4 @@
-fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
+var fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
 ለ la ሉ lu ሊ li ላ lā ሌ lé ል le ሎ lo \
 ሐ ca ሑ cu ሒ ci ሓ cā ሔ cé ሕ ce ሖ co \
 መ ma ሙ mu ሚ mi ማ mā ሜ mé ም me ሞ mo \
