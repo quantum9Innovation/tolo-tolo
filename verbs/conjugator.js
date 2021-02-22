@@ -470,6 +470,9 @@ var imperfect = function(amharic_verb, subject) {
 
 }
 
+
+// TESTING SCRIPTS
+/*
 prettify(imperfect("መልበስ", "እኔ"))
 prettify(imperfect("መፈለ.ግ", "አንተ"))
 prettify(imperfect("መመንዘር", "አንቺ"))
@@ -483,3 +486,7 @@ prettify(imperfect("ማንበብ", "አንተ"))
 prettify(imperfect("ማድረስ", "አንቺ"))
 prettify(imperfect("መሮጥ", "አንቺ"))
 prettify(imperfect("መሄድ", "አንቺ"))
+*/
+
+// FAILURE CASE: prettify(imperfect("ማጥናት", "አንተ"))
+// FAILURE CASE: prettify(imperfect("መደብደብ", "እነሱ"))
