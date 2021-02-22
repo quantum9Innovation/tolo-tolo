@@ -2,6 +2,8 @@
     Conjugations in the imperfective and perfective tenses
     Causative verbs in mā- are included but not those in mās-
     Negative conjugations have not been implemented yet
+
+    From fidal.js
 */
 
 var fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
@@ -41,11 +43,14 @@ var fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
 
 fidal = fidal.split(' ')
 
+
 /*
     All consonants are numbers (ma-): Lines 0-7
     Last two letters -at: Lines 8-9
     Last two letters -āt: Lines 10-11
     All consonants are numbers (mā-): Lines 12-14
+
+    From table.js
 */
 var table = 'ma12a3 1a22a3 1a23 \
 ma1a22a3 1a22a3 1a22e3 \
@@ -59,9 +64,32 @@ ma12at 1a22 1a2 \
 ma1a22at 1a22 1a22 \
 ma12āt 1a22ā 1a2 \
 ma1a22āt 1a22ā 1a22 \
-mā12a2 ā1a2a2 ā1a2 \
 mā1a2 ā11a2 ā12 \
 mā11a2 ā11a2 ā11e2'
+
+table = table.split(' ')
+
+
+/*
+    From fidal-vowels.js
+*/
+var vowels = ['a', 'u', 'i', 'ā', 'é', 'e', 'o']
+
+
+/* 
+    Prefixes and suffixes for the imperfective tense
+    Prefixes for imperfective tense
+        - with a vowel, without a vowel, suffix
+    Suffixes for the perfective tense
+        - Some suffixes have multiple forms (each is used for a certain case)
+        - The last two suffixes replace the last vowel if it exists
+
+    From endings.js
+*/
+
+var imperfective = ["እኔ", "", "ʼe", "āl.ahu", "አንተ", "t", "te", "āl.ahe", "አንቺ", "t", "te", "iyal.aše", "እሱ", "y", "ye", "āle", "እሷ", "t", "te", "āl.ače", "እኛ", "en", "en.e", "āl.ane", "እናንተ", "t", "te", "āl.āč.ehu", "እነሱ", "y", "ye", "al.u"]
+
+var perfective = ["እኔ", "ehu, eku", "አንተ", "eh, ek", "አንቺ", "eš", "እሱ", "a", "እሷ", "ač, eč", "እኛ", "en", "እናንተ", "ač.ehu", "እነሱ", "u"]
 
 
 var imperfect = function(amharic_verb, subject) {
@@ -103,16 +131,340 @@ var imperfect = function(amharic_verb, subject) {
         }
     }
 
-    verb = verb.join('')
-
 
     // Process #2
-    var causative = false
-    var type = ''
+    var type = []
+    var consonants = []
+    var cons_no = 1
+
+    // Type Identification
+    if ( verb[1] == 'ā' ) {  // mā- verb type (or causative verb in ma-)
+        
+        type = ['m', 'ā']
+        for ( var i = 2; i < verb.length - 1; i++ ) {
+
+            //detect if letter is consonant
+            var is_cons = true
+            for ( var j = 0; j < vowels.length; j++ ) {
+                if ( verb[i] == vowels[j] ) {
+                    is_cons = false
+                }
+            }
+
+            if ( is_cons && verb[i] != '.' ) {  // consonant
+                consonants.push(verb[i])  // add verb to consonants list
+                type.push(cons_no)  // add consonant placement number to type
+                cons_no++  // change consonant number for next consonant
+            }
+            else if ( verb[i] == '.' ) {  // germinated consonant
+                type.push(cons_no - 1)  // add previous consonant placement number to type to represent germinated consanant
+            }
+            else if ( verb[i] == 'e' ) {  // 'e' vowel (consonant seperator -- not included in table)
+                // don't do anything
+            }
+            else {  // vowel that is not 'e'
+                type.push(verb[i])  // add vowel to type (placement is irrelevant for vowels)
+            }
+
+        }
+
+    }
+    else if ( verb[verb.length - 3] == 'a' && verb[verb.length - 2] == 't' ) {  // -at verb type
+       
+        type = ['m', 'a']
+        for ( var i = 2; i < verb.length - 3; i++ ) {
+
+            //detect if letter is consonant
+            var is_cons = true
+            for ( var j = 0; j < vowels.length; j++ ) {
+                if ( verb[i] == vowels[j] ) {
+                    is_cons = false
+                }
+            }
+
+            if ( is_cons && verb[i] != '.' ) {  // consonant
+                consonants.push(verb[i])  // add verb to consonants list
+                type.push(cons_no)  // add consonant placement number to type
+                cons_no++  // change consonant number for next consonant
+            }
+            else if ( verb[i] == '.' ) {  // germinated consonant
+                type.push(cons_no - 1)  // add previous consonant placement number to type to represent germinated consanant
+            }
+            else if ( verb[i] == 'e' ) {  // 'e' vowel (consonant seperator -- not included in table)
+                // don't do anything
+            }
+            else {  // vowel that is not 'e'
+                type.push(verb[i])  // add vowel to type (placement is irrelevant for vowels)
+            }
+
+        }
+
+        type.push('a')
+        type.push('t')
+
+    }
+    else if ( verb[verb.length - 3] == 'ā' && verb[verb.length - 2] == 't' ) {  // -āt verb type
+
+        type = ['m', 'a']
+        for ( var i = 2; i < verb.length - 3; i++ ) {
+
+            //detect if letter is consonant
+            var is_cons = true
+            for ( var j = 0; j < vowels.length; j++ ) {
+                if ( verb[i] == vowels[j] ) {
+                    is_cons = false
+                }
+            }
+
+            if ( is_cons && verb[i] != '.' ) {  // consonant
+                consonants.push(verb[i])  // add verb to consonants list
+                type.push(cons_no)  // add consonant placement number to type
+                cons_no++  // change consonant number for next consonant
+            }
+            else if ( verb[i] == '.' ) {  // germinated consonant
+                type.push(cons_no - 1)  // add previous consonant placement number to type to represent germinated consanant
+            }
+            else if ( verb[i] == 'e' ) {  // 'e' vowel (consonant seperator -- not included in table)
+                // don't do anything
+            }
+            else {  // vowel that is not 'e'
+                type.push(verb[i])  // add vowel to type (placement is irrelevant for vowels)
+            }
+
+        }
+
+        type.push('ā')
+        type.push('t')
+
+    }
+    else {  // regular ma- verb type
+
+        type = ['m', 'a']
+        for ( var i = 2; i < verb.length - 1; i++ ) {
+
+            //detect if letter is consonant
+            var is_cons = true
+            for ( var j = 0; j < vowels.length; j++ ) {
+                if ( verb[i] == vowels[j] ) {
+                    is_cons = false
+                }
+            }
+
+            if ( is_cons && verb[i] != '.' ) {  // consonant
+                consonants.push(verb[i])  // add verb to consonants list
+                type.push(cons_no)  // add consonant placement number to type
+                cons_no++  // change consonant number for next consonant
+            }
+            else if ( verb[i] == '.' ) {  // germinated consonant
+                type.push(cons_no - 1)  // add previous consonant placement number to type to represent germinated consanant
+            }
+            else if ( verb[i] == 'e' ) {  // 'e' vowel (consonant seperator -- not included in table)
+                // don't do anything
+            }
+            else {  // vowel that is not 'e'
+                type.push(verb[i])  // add vowel to type (placement is irrelevant for vowels)
+            }
+
+        }
+
+    }
+
+    type = type.join('')
 
 
-    return verb
+    // Process #3
+    var stem_formula = ''
+    var stem = []
+
+    // Stem Getter
+    for ( var i = 0; i < table.length; i+=3) {
+        if ( type == table[i] ) {
+            stem_formula = table[i + 2]  // imperfect stem formula
+            break
+        }
+    }
+
+    if ( stem_formula == '' ) {  // assumes this must mean verb is causative in mā-
+        
+        type = type.split('')
+        type[1] = 'a'
+        type = type.join('')
+
+        for ( var i = 0; i < table.length; i+=3) {
+            if ( type == table[i] ) {
+                stem_formula = table[i + 2]  // imperfect stem formula
+                break
+            }
+        }
+
+        stem_formula = 'ā' + stem_formula  // add ā- to stem
+    
+    }
+
+    stem_formula = stem_formula.split('')
+    for ( var i = 0; i < stem_formula.length; i++ ) {
+
+        if ( stem_formula[i] == stem_formula[i - 1] ) {  // germinated consonant
+            stem.push('.')  // add period indicating germinated consonant
+        }
+        else if ( parseInt(stem_formula[i]) && parseInt(stem_formula[i - 1]) ) {  // 2 consonants in a row
+            if ( consonants[parseInt(stem_formula[i]) - 1] == consonants[parseInt(stem_formula[i - 1]) - 1] ) {  // same consonant
+                stem_formula.push('.')  // germinate consonants instead of doubling
+            }
+            else {  // different consonants
+                stem.push('e')  // add seperator vowel 
+                stem.push(consonants[parseInt(stem_formula[i]) - 1])  // add correct consonant
+            }
+        }
+        else if ( parseInt(stem_formula[i]) ) {  // consonant, no 2 consonants in a row
+            stem.push(consonants[parseInt(stem_formula[i]) - 1])  // add correct consonant
+        }
+        else {  // vowel
+            stem.push(stem_formula[i])  // add vowel as written in the stem formula
+        }
+
+    }
+
+
+    // Process #4
+    var result = stem
+
+    // Conjugation
+    for ( var i = 0; i < imperfective.length; i+=4 ) {
+        if ( imperfective[i] == subject ) {
+
+            // prefixing
+            var start_vowel = false
+            for ( var j = 0; j < vowels.length; j++ ) {
+                if ( result[0] == vowels[j] ) {
+                    start_vowel = true
+                    break
+                }
+            }
+
+            if ( start_vowel ) {
+                result.splice(0, 0, ...imperfective[i + 1].split(''))
+            }
+            else {
+                result.splice(0, 0, ...imperfective[i + 2].split(''))
+            }
+
+            //suffixing
+            result.push(...imperfective[i + 3].split(''))
+
+            if ( subject == "አንቺ" ) {
+
+                if ( result[result.length - 9] == 't' ) {
+                    result.splice(result.length - 9, 3, 'č') 
+                }
+                else if (result[result.length - 10] == 't' && result[result.length - 9] == '.') {
+                    result.splice(result.length - 10, 4, 'č', '.')
+                }
+
+                if ( result[result.length - 9] == 'd' ) {
+                    result.splice(result.length - 9, 3, 'j')
+                }
+                else if (result[result.length - 10] == 'd' && result[result.length - 9] == '.') {
+                    result.splice(result.length - 10, 4, 'j', '.')
+                }
+
+                if ( result[result.length - 9] == 'T' || result[result.length - 9] == 'S' || result[result.length - 9] == 'ṡ' ) {
+                    result.splice(result.length - 9, 3, 'ċ') 
+                }
+                else if (result[result.length - 10] == 'T' && result[result.length - 9] == '.' || result[result.length - 10] == 'S' && result[result.length - 9] == '.' || result[result.length - 10] == 'ṡ' && result[result.length - 9] == '.' ) {
+                    result.splice(result.length - 10, 4, 'ċ', '.')
+                }
+
+                if ( result[result.length - 9] == 's' ) {
+                    result.splice(result.length - 9, 3, 'š') 
+                }
+                else if (result[result.length - 10] == 's' && result[result.length - 9] == '.') {
+                    result.splice(result.length - 10, 4, 'š', '.')
+                }
+
+                if ( result[result.length - 9] == 'z' ) {
+                    result.splice(result.length - 9, 3, 'ž') 
+                }
+                else if (result[result.length - 10] == 'z' && result[result.length - 9] == '.') {
+                    result.splice(result.length - 10, 4, 'ž', '.')
+                }
+
+                if ( result[result.length - 9] == 'n' ) {
+                    result.splice(result.length - 9, 3, 'ñ') 
+                }
+                else if (result[result.length - 10] == 'n' && result[result.length - 9] == '.') {
+                    result.splice(result.length - 10, 4, 'ñ', '.')
+                }
+
+                if ( result[result.length - 9] == 'l' ) {
+                    result.splice(result.length - 9, 3, 'y') 
+                }
+                else if (result[result.length - 10] == 'l' && result[result.length - 9] == '.') {
+                    result.splice(result.length - 10, 4, 'y', '.')
+                }
+
+            }
+
+        }
+    }
+
+
+    // Process #5
+    var output = []
+    var memory = ''
+    var germinated_memory = false
+ 
+    for ( var i = 0; i < result.length; i++ ) {
+
+        var is_vowel = false
+        for ( var j = 0; j < vowels.length; j++ ) {
+            if ( vowels[j] == result[i] ) {
+                is_vowel = true
+            }
+        }
+
+        if ( !is_vowel && result[i] != '.' ) {  // is consonant
+            memory = result[i]
+        }
+        else if ( result[i] == '.' ) {  // germinated consonant
+            germinated_memory = true
+        }
+        else {  // is vowel
+            
+            char = memory + result[i]
+            for ( var j = 1; j < fidal.length; j+=2 ) {
+                if ( char == fidal[j] ) {
+                    output.push(fidal[j - 1])
+                    break
+                }
+            }
+
+            if ( germinated_memory ) {
+                output.push('.')
+            }
+
+            memory = ''
+            germinated_memory = false
+
+        }
+
+    }
+
+    output = output.join('')
+    return output
 
 }
 
-console.log(imperfect("መፈለ.ግ"))
+console.log(imperfect("መልበስ", "እኔ"))
+console.log(imperfect("መፈለ.ግ", "አንተ"))
+console.log(imperfect("መመንዘር", "አንቺ"))
+console.log(imperfect("ማወቅ", "እሱ"))
+console.log(imperfect("ማደ.ስ", "እሷ"))
+console.log(imperfect("መግባት", "እኛ"))
+console.log(imperfect("መጠጣ.ት", "እናንተ"))
+console.log(imperfect("መምሸት", "እነሱ"))
+console.log(imperfect("መበዠ.ት", "እኔ"))
+console.log(imperfect("ማንበብ", "አንተ"))
+console.log(imperfect("ማድረስ", "አንቺ"))
+console.log(imperfect("መሮጥ", "አንቺ"))
+console.log(imperfect("መሄድ", "አንቺ"))
