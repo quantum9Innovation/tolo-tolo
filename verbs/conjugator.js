@@ -87,9 +87,24 @@ var vowels = ['a', 'u', 'i', 'ā', 'é', 'e', 'o']
     From endings.js
 */
 
-var imperfective = ["እኔ", "", "ʼe", "āl.ahu", "አንተ", "t", "te", "āl.ahe", "አንቺ", "t", "te", "iyal.aše", "እሱ", "y", "ye", "āle", "እሷ", "t", "te", "āl.ače", "እኛ", "en", "en.e", "āl.ane", "እናንተ", "t", "te", "āl.āč.ehu", "እነሱ", "y", "ye", "al.u"]
+var imperfective = ["እኔ", "", "ʼe", "āl.ahu", "አንተ", "t", "te", "āl.ahe", "አንቺ", "t", "te", "iyāl.aše", "እሱ", "y", "ye", "āle", "እሷ", "t", "te", "āl.ače", "እኛ", "en", "en.e", "āl.ane", "እናንተ", "t", "te", "āl.āč.ehu", "እነሱ", "y", "ye", "al.u"]
 
 var perfective = ["እኔ", "ehu, eku", "አንተ", "eh, ek", "አንቺ", "eš", "እሱ", "a", "እሷ", "ač, eč", "እኛ", "en", "እናንተ", "ač.ehu", "እነሱ", "u"]
+
+
+var prettify = function(amharic_text) {
+
+    output = amharic_text.split('')
+    for ( var i = 0; i < output.length - 1; i++ ) {
+        if ( output[i + 1] != '.' ) {
+            output.splice(i + 1, 0, ' ')
+            i++
+        }
+    }
+
+    console.log(output.join(''))
+
+}
 
 
 var imperfect = function(amharic_verb, subject) {
@@ -455,16 +470,16 @@ var imperfect = function(amharic_verb, subject) {
 
 }
 
-console.log(imperfect("መልበስ", "እኔ"))
-console.log(imperfect("መፈለ.ግ", "አንተ"))
-console.log(imperfect("መመንዘር", "አንቺ"))
-console.log(imperfect("ማወቅ", "እሱ"))
-console.log(imperfect("ማደ.ስ", "እሷ"))
-console.log(imperfect("መግባት", "እኛ"))
-console.log(imperfect("መጠጣ.ት", "እናንተ"))
-console.log(imperfect("መምሸት", "እነሱ"))
-console.log(imperfect("መበዠ.ት", "እኔ"))
-console.log(imperfect("ማንበብ", "አንተ"))
-console.log(imperfect("ማድረስ", "አንቺ"))
-console.log(imperfect("መሮጥ", "አንቺ"))
-console.log(imperfect("መሄድ", "አንቺ"))
+prettify(imperfect("መልበስ", "እኔ"))
+prettify(imperfect("መፈለ.ግ", "አንተ"))
+prettify(imperfect("መመንዘር", "አንቺ"))
+prettify(imperfect("ማወቅ", "እሱ"))
+prettify(imperfect("ማደ.ስ", "እሷ"))
+prettify(imperfect("መግባት", "እኛ"))
+prettify(imperfect("መጠጣ.ት", "እናንተ"))
+prettify(imperfect("መምሸት", "እነሱ"))
+prettify(imperfect("መበዠ.ት", "እኔ"))
+prettify(imperfect("ማንበብ", "አንተ"))
+prettify(imperfect("ማድረስ", "አንቺ"))
+prettify(imperfect("መሮጥ", "አንቺ"))
+prettify(imperfect("መሄድ", "አንቺ"))
