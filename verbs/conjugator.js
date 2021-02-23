@@ -87,7 +87,7 @@ var vowels = ['a', 'u', 'i', 'ā', 'é', 'e', 'o']
     From endings.js
 */
 
-var imperfective = ["እኔ", "", "ʼe", "āl.ahu", "አንተ", "t", "te", "āl.ahe", "አንቺ", "t", "te", "iyāl.aše", "እሱ", "y", "ye", "āle", "እሷ", "t", "te", "āl.ače", "እኛ", "en", "en.e", "āl.ane", "እናንተ", "t", "te", "āl.āč.ehu", "እነሱ", "y", "ye", "al.u"]
+var imperfective = ["እኔ", "", "ʼe", "āl.ahu", "አንተ", "t", "te", "āl.ahe", "አንቺ", "t", "te", "iyāl.aše", "እሱ", "y", "ye", "āle", "እሷ", "t", "te", "āl.ače", "እኛ", "en", "en.e", "āl.ane", "እናንተ", "t", "te", "āl.āč.ehu", "እነሱ", "y", "ye", "āl.u"]
 
 var perfective = ["እኔ", "ehu, eku", "አንተ", "eh, ek", "አንቺ", "eš", "እሱ", "a", "እሷ", "ač, eč", "እኛ", "en", "እናንተ", "ač.ehu", "እነሱ", "u"]
 
@@ -156,7 +156,20 @@ var imperfect = function(amharic_verb, subject) {
     if ( verb[1] == 'ā' ) {  // mā- verb type (or causative verb in ma-)
         
         type = ['m', 'ā']
-        for ( var i = 2; i < verb.length - 1; i++ ) {
+        var at_verb = false  // if any of these flags are true, it is assumed the verb is causative
+        var et_verb = false
+        var end = 1
+
+        if ( verb[verb.length - 3] == 'ā' && verb[verb.length - 2] == 't' ) {
+            end = 3
+            at_verb = true
+        }
+        if ( verb[verb.length - 3] == 'a' && verb[verb.length - 2] == 't' ) {
+            end = 3
+            et_verb = true
+        }
+
+        for ( var i = 2; i < verb.length - end; i++ ) {
 
             //detect if letter is consonant
             var is_cons = true
@@ -181,6 +194,15 @@ var imperfect = function(amharic_verb, subject) {
                 type.push(verb[i])  // add vowel to type (placement is irrelevant for vowels)
             }
 
+        }
+
+        if ( at_verb ) {
+            type.push('ā')
+            type.push('t')         
+        }
+        else if ( et_verb ) {
+            type.push('a')
+            type.push('t')
         }
 
     }
@@ -486,7 +508,8 @@ prettify(imperfect("ማንበብ", "አንተ"))
 prettify(imperfect("ማድረስ", "አንቺ"))
 prettify(imperfect("መሮጥ", "አንቺ"))
 prettify(imperfect("መሄድ", "አንቺ"))
+prettify(imperfect("ማጥናት", "እሱ"))
+prettify(imperfect("መደብደብ", "እነሱ"))
 */
 
-// FAILURE CASE: prettify(imperfect("ማጥናት", "አንተ"))
-// FAILURE CASE: prettify(imperfect("መደብደብ", "እነሱ"))
+prettify(imperfect("", ""))
