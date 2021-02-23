@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+      <meta charset="utf-8">
+      <title>Amharic Verb Lookup Tables</title>
+
+      <link rel='shortcut icon' href='https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' >
+
+    </head>
+    
+    <style>
+        
+        h1 {
+            margin-left: 10vw;
+            margin-top: 10vh;
+            color: lightslategrey;
+            font-family: Helvetica;
+            font-size: 5vh;
+        }
+
+        h2 {
+            margin-left: 10vw;
+            color: #aaa;
+            font-family: Helvetica;
+            width: 67vw;
+            font-size: 2.7vh;
+        }
+
+        textarea {
+            margin-left: 10vw;
+            border-color: lightgray;
+            padding-top: 1.25vh;
+            padding-left: 2vw;
+            height: 6vh;
+            width: 70vw;
+            font-family: Helvetica;
+            font-size: 3.5vh;
+            resize: none;
+            
+        }
+
+        textarea:focus {
+            outline: none !important;
+            border-color: #3388ff;
+            border-width: 3px;
+        }
+
+        table {
+            display: block;
+            width: 50vw;
+            margin-top: 7vh;
+            margin-left: 10vw;
+            font-family: sans-serif;
+            font-size: 3.5vh;
+            color: #444;
+            text-align: center;
+            border-collapse: collapse;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #eee;
+        }
+
+        td {
+            width: 20vw;
+            border: 1px solid slategray;
+            margin: 0px;
+            padding: 0px;
+        }
+
+    </style>
+    
+    <body>
+        
+        <h1>Search in Amharic for an underived or causative verb in ማ-</h1>
+        <h2>Protip: Place periods (.) after germinated consonants in your search to get more accurate conjugations for some verb types.</h2>
+        <textarea id='search' spellcheck='false' ></textarea>
+
+        <br><br>
+        <table id='imp-aff' >
+            <thead>
+                <tr>
+                    <th>Singular</th>
+                    <th>Plural</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>እኔ</td>
+                <td>እኛ</td>
+            </tr>
+            <tr>
+                <td>አንተ</td>
+                <td>እናንተ</td>
+            </tr>
+            <tr>
+                <td>አንቺ</td>
+            </tr>
+            <tr>
+                <td>እሱ</td>
+                <td>እነሱ</td>
+            </tr>
+            <tr>
+                <td>እሷ</td>
+            </tr>
+        </table>
+        
+    </body>
+    
+    <script src='fidal.js' ></script>
+    <script src='table-short.js' ></script>
+    <script src='endings.js' ></script>
+    <script src='conjugator.js' ></script>
+    <script>
+        
+        var search = document.getElementById('search')
+
+
+        var generate = function(text) {
+            /*
+                Conjugates verb
+                Generates tables
+            */
+
+            s1 = imperfect(text, "እኔ")
+            s2m = imperfect(text, "አንተ")
+            s2f = imperfect(text, "አንቺ")
+            s3m = imperfect(text, "እሱ")
+            s3f = imperfect(text, "እሷ")
+            p1 = imperfect(text, "እኛ")
+            p2 = imperfect(text, "እናንተ")
+            p3 = imperfect(text, "እነሱ")
+
+            var table = document.getElementById('imp-aff')
+            table.rows[1].cells[0].innerHTML = s1
+            table.rows[1].cells[1].innerHTML = p1
+            table.rows[2].cells[0].innerHTML = s2m
+            table.rows[2].cells[1].innerHTML = p2
+            table.rows[3].cells[0].innerHTML = s2f
+            table.rows[4].cells[0].innerHTML = s3m
+            table.rows[4].cells[1].innerHTML = p3
+            table.rows[5].cells[0].innerHTML = s3f
+
+        }
+
+
+        var is_searching = function(e) {
+ 
+            if ( e.key == 'Enter' ) {
+                e.preventDefault()
+                generate(search.value)
+            }
+
+        }
+
+
+        search.addEventListener('keydown', is_searching)
+
+    </script>
+    
+</html>
