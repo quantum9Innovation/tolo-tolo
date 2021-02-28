@@ -4,6 +4,7 @@
     Last two letters -at: Lines 8-9
     Last two letters -āt: Lines 10-11
     All consonants are numbers (mā-): Lines 12-14
+    Germinated consonants (ma- verbs): Lines 15-end
 
     Includes tables with germinated consonants and without
 */

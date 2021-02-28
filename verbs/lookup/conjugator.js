@@ -244,8 +244,18 @@ var imperfect = function(amharic_verb, subject) {
             }
         }
 
-        stem_formula = 'ā' + stem_formula  // add ā- to stem
+        if ( stem_formula ) {
+            stem_formula = 'ā' + stem_formula  // add ā- to stem
+        }
     
+    }
+
+    if ( stem_formula == '' ) {  // uses standard infinitive without the first two letters as stem
+        
+        type = type.split('')
+        type.splice(0, 2)
+        stem_formula = type.join('')
+
     }
 
     stem_formula = stem_formula.split('')
@@ -300,7 +310,7 @@ var imperfect = function(amharic_verb, subject) {
             result.push(...imperfective[i + 3].split(''))
 
             if ( subject == "አንቺ" ) {
-
+                
                 if ( result[result.length - 9] == 't' ) {
                     result.splice(result.length - 9, 3, 'č') 
                 }
@@ -308,42 +318,42 @@ var imperfect = function(amharic_verb, subject) {
                     result.splice(result.length - 10, 4, 'č', '.')
                 }
 
-                if ( result[result.length - 9] == 'd' ) {
+                else if ( result[result.length - 9] == 'd' ) {
                     result.splice(result.length - 9, 3, 'j')
                 }
                 else if (result[result.length - 10] == 'd' && result[result.length - 9] == '.') {
                     result.splice(result.length - 10, 4, 'j', '.')
                 }
 
-                if ( result[result.length - 9] == 'T' || result[result.length - 9] == 'S' || result[result.length - 9] == 'ṡ' ) {
+                else if ( result[result.length - 9] == 'T' || result[result.length - 9] == 'S' || result[result.length - 9] == 'ṡ' ) {
                     result.splice(result.length - 9, 3, 'ċ') 
                 }
                 else if (result[result.length - 10] == 'T' && result[result.length - 9] == '.' || result[result.length - 10] == 'S' && result[result.length - 9] == '.' || result[result.length - 10] == 'ṡ' && result[result.length - 9] == '.' ) {
                     result.splice(result.length - 10, 4, 'ċ', '.')
                 }
 
-                if ( result[result.length - 9] == 's' ) {
+                else if ( result[result.length - 9] == 's' ) {
                     result.splice(result.length - 9, 3, 'š') 
                 }
                 else if (result[result.length - 10] == 's' && result[result.length - 9] == '.') {
                     result.splice(result.length - 10, 4, 'š', '.')
                 }
 
-                if ( result[result.length - 9] == 'z' ) {
+                else if ( result[result.length - 9] == 'z' ) {
                     result.splice(result.length - 9, 3, 'ž') 
                 }
                 else if (result[result.length - 10] == 'z' && result[result.length - 9] == '.') {
                     result.splice(result.length - 10, 4, 'ž', '.')
                 }
 
-                if ( result[result.length - 9] == 'n' ) {
+                else if ( result[result.length - 9] == 'n' ) {
                     result.splice(result.length - 9, 3, 'ñ') 
                 }
                 else if (result[result.length - 10] == 'n' && result[result.length - 9] == '.') {
                     result.splice(result.length - 10, 4, 'ñ', '.')
                 }
 
-                if ( result[result.length - 9] == 'l' ) {
+                else if ( result[result.length - 9] == 'l' ) {
                     result.splice(result.length - 9, 3, 'y') 
                 }
                 else if (result[result.length - 10] == 'l' && result[result.length - 9] == '.') {
