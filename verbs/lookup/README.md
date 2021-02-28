@@ -15,4 +15,4 @@ me | mu | mee | ma | may | mi | mo
 All letters should be seperated by a dash like: \
 me-fe-le-gi = መፈለግ
 <br><br>
-For the full list of character transliterations, see https://wwww.github.com/quantum9innovation/tolo-tolo/verbs/lookup/input-fidal.js
+For the full list of character transliterations, see https://www.github.com/quantum9innovation/tolo-tolo/tree/main/verbs/lookup/input-fidal.js
