@@ -108,6 +108,7 @@
     </body>
     
     <script src='fidal.js' ></script>
+    <script src='input-fidal.js' ></script>
     <script src='table-short.js' ></script>
     <script src='endings.js' ></script>
     <script src='conjugator.js' ></script>
@@ -121,6 +122,48 @@
                 Conjugates verb
                 Generates tables
             */
+
+            var lang = false  // false --> Amharic, true --> English
+            var letter = text[0]
+            var alphabet = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'H', 'S', 'T', 'P', 'C', 'K', '~']
+
+            for ( var i = 0; i < alphabet.length; i++ ) {
+                if ( letter == alphabet[i] ) {
+                    lang = true
+                }
+            }
+
+            // transliteration
+            var new_text = []
+            if ( lang ) {
+          
+                text = text.split('-')
+                for ( var char = 0; char < text.length; char++ ) {
+
+                    character = text[char].split('')
+                    var germinate = false
+                    if ( character[character.length - 1] == '.' ) {
+                        germinate = true
+                        character.splice(character.length - 1, 1)
+                    }
+
+                    character = character.join('')
+                    for ( var am = 1; am < transliterator.length; am++ ) {
+                        if ( transliterator[am] == character ) {
+                            new_text.push(transliterator[am - 1])
+                        }
+                    }
+
+                    if ( germinate ) {
+                        new_text.push('.')
+                    }
+
+                }
+
+                new_text = new_text.join('')
+                text = new_text
+
+            }
 
             s1 = imperfect(text, "እኔ")
             s2m = imperfect(text, "አንተ")
@@ -145,8 +188,8 @@
 
 
         var is_searching = function(e) {
- 
-            if ( e.key == 'Enter' ) {
+      
+            if ( e.keyCode == 13 ) {
                 e.preventDefault()
                 generate(search.value)
             }
