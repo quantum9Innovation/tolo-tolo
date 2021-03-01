@@ -13,7 +13,7 @@ var fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
 ኀ Ha ኁ Hu ኂ Hi ኃ Hā ኄ Hé ኅ He ኆ Ho \
 ነ na ኑ nu ኒ ni ና nā ኔ né ን ne ኖ no \
 ኘ ña ኙ ñu ኚ ñi ኛ ñā ኜ ñé ኝ ñe ኞ ño \
-አ ʼa ኡ ʼu ኢ ʼi ኣ ʼā ኤ ʼé እ ʼe ኦ ʼo \
+አ ʼā ኡ ʼu ኢ ʼi ኣ ʼa ኤ ʼé እ ʼe ኦ ʼo \
 ከ ka ኩ ku ኪ ki ካ kā ኬ ké ክ ke ኮ ko \
 ኸ xa ኹ xu ኺ xi ኻ xā ኼ xé ኽ xe ኾ xo \
 ወ wa ዉ wu ዊ wi ዋ wā ዌ wé ው we ዎ wo \
