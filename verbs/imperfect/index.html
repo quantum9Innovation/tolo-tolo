@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+    <head>
+
+      <meta charset="utf-8">
+      <title>Amharic Imperfect Practice</title>
+
+      <link rel='shortcut icon' href='https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png' >
+
+    </head>
+    
+    <style>
+        
+        #verb {
+            text-align: center;
+            font-size: 30vh;
+            margin-top: 10vh;
+            margin-bottom: 2vh;
+        }
+
+        #subj {
+            width: 75vw;
+            margin-right: 25vw;
+            text-align: right;
+            font-size: 10vh;
+            margin-top: 0px;
+            margin-bottom: 10vh;
+        }
+        
+        #des {
+            width: 40vw;
+            margin: auto;
+            text-align: center;
+            font-size: 4vh;
+        }
+
+        #radio {
+            width: 37vw;
+            margin: auto;
+        }
+
+        #radio button {
+            width: 9vw;
+            margin: 0px;
+            margin-top: 2vh;
+            border: none;
+            border-radius: 0px;
+            height: 4vh;
+            font-size: 2.25vh;
+            background-color: rgb(0, 180, 15);
+            color: white;
+        }
+
+        #radio button:focus {
+            outline: none;
+            background-color: rgb(40, 180, 55);
+        }
+
+    </style>
+    
+    <body>
+        
+        <h1 id='verb' >Verb</h1>
+        <h2 id='subj' >Subject</h2>
+        <p id='des' >Tap verb to flip</p>
+        <div id='radio' >
+            <button id='two-rad' >2 radical</button>
+            <button id='three-rad' >3 radical</button>
+            <button id='four-rad' >4 radical</button>
+            <button id='all' >All</button>
+        </div>
+        
+    </body>
+
+    <script src='list.js' ></script>
+    <script src='../lookup/fidal.js' ></script>
+    <script src='../lookup/endings.js' ></script>
+    <script src='../lookup/table.js' ></script>
+    <script src='../lookup/conjugator.js' ></script>
+    <script>
+        
+        var elVerb = document.getElementById('verb')
+        var elSubj = document.getElementById('subj')
+
+        var elTwoRad = document.getElementById('two-rad')
+        var elThreeRad = document.getElementById('three-rad')
+        var elFourRad = document.getElementById('four-rad')
+        var elAll = document.getElementById('all')
+
+        var subjects = ['እኔ', 'አንተ', 'አንቺ', 'እሱ', 'እሷ', 'እኛ', 'እነሱ']
+        var verbList = all
+        var randomSubj = subjects[Math.floor(Math.random() * subjects.length)]
+        var randomVerb = verbList[Math.floor(Math.random() * verbList.length)]
+
+        elVerb.innerHTML = randomVerb
+        elSubj.innerHTML = randomSubj
+
+        var next = false  // after 1 tap, next = true, after 2 taps, next = false
+        
+        var change = function() {
+            /*
+                Change card
+                Change subject
+                Change verb
+            */
+
+            randomSubj = subjects[Math.floor(Math.random() * subjects.length)]
+            randomVerb = verbList[Math.floor(Math.random() * verbList.length)]
+
+            elVerb.innerHTML = randomVerb
+            elSubj.innerHTML = randomSubj
+        }
+
+        var flip = function() {
+            /*
+                Flip card
+                Show conjugated verb
+                Replace subject with subject/infinitive
+            */
+
+            elSubj.innerHTML = randomSubj + ' / ' + randomVerb
+            elVerb.innerHTML = imperfect(randomVerb, randomSubj)
+        }
+
+        var decide = function(e) {
+            /*
+                Check value of next
+                Call either flip or change
+                Update value of next
+            */
+
+            if ( next ) {
+                change()
+                next = false
+            }
+            else {
+                flip()
+                next = true
+            }
+        }
+
+        elVerb.addEventListener('mouseup', decide)
+
+        var changeTwo = function(e) {
+            verbList = TwoRad
+        }
+        var changeThree = function(e) {
+            verbList = ThreeRad
+        }
+        var changeFour = function(e) {
+            verbList = FourRad
+        }
+        var changeAll = function(e) {
+            verbList = all
+        }
+        
+        elTwoRad.addEventListener('click', changeTwo)
+        elThreeRad.addEventListener('click', changeThree)
+        elFourRad.addEventListener('click', changeFour)
+        elAll.addEventListener('click', changeAll)
+
+    </script>
+    
+</html>
