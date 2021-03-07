@@ -252,8 +252,15 @@ var imperfect = function(amharic_verb, subject) {
 
     if ( stem_formula == '' ) {  // uses standard infinitive without the first two letters as stem
         
+        // remove me-/ma- prefix
         type = type.split('')
         type.splice(0, 2)
+  
+        // remove -at suffix
+        if ( type[type.length - 2] == 'ā' && type[type.length - 1] == 't' ) {
+            type.splice(type.length - 2, 2)
+        }
+
         stem_formula = type.join('')
 
     }
