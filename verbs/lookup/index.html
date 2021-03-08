@@ -51,7 +51,7 @@
         table {
             display: block;
             width: 50vw;
-            margin-top: 7vh;
+            margin-top: 2vh;
             margin-left: 10vw;
             font-family: sans-serif;
             font-size: 3.5vh;
@@ -80,7 +80,35 @@
         <input id='search' spellcheck='false' ></input>
 
         <br><br>
+        <h1 class='table-head' >Imperfect</h1>
         <table id='imp-aff' >
+            <thead>
+                <tr>
+                    <th>Singular</th>
+                    <th>Plural</th>
+                </tr>
+            </thead>
+            <tr>
+                <td>እኔ</td>
+                <td>እኛ</td>
+            </tr>
+            <tr>
+                <td>አንተ</td>
+                <td>እናንተ</td>
+            </tr>
+            <tr>
+                <td>አንቺ</td>
+            </tr>
+            <tr>
+                <td>እሱ</td>
+                <td>እነሱ</td>
+            </tr>
+            <tr>
+                <td>እሷ</td>
+            </tr>
+        </table>
+        <h1 class='table-head' >Perfect</h1>
+        <table id='per-aff' >
             <thead>
                 <tr>
                     <th>Singular</th>
@@ -167,14 +195,14 @@
 
             }
 
-            s1 = imperfect(text, "እኔ")
-            s2m = imperfect(text, "አንተ")
-            s2f = imperfect(text, "አንቺ")
-            s3m = imperfect(text, "እሱ")
-            s3f = imperfect(text, "እሷ")
-            p1 = imperfect(text, "እኛ")
-            p2 = imperfect(text, "እናንተ")
-            p3 = imperfect(text, "እነሱ")
+            var s1 = imperfect(text, "እኔ")
+            var s2m = imperfect(text, "አንተ")
+            var s2f = imperfect(text, "አንቺ")
+            var s3m = imperfect(text, "እሱ")
+            var s3f = imperfect(text, "እሷ")
+            var p1 = imperfect(text, "እኛ")
+            var p2 = imperfect(text, "እናንተ")
+            var p3 = imperfect(text, "እነሱ")
 
             var table = document.getElementById('imp-aff')
             table.rows[1].cells[0].innerHTML = s1
@@ -185,6 +213,25 @@
             table.rows[4].cells[0].innerHTML = s3m
             table.rows[4].cells[1].innerHTML = p3
             table.rows[5].cells[0].innerHTML = s3f
+
+            var s1p = perfect(text, "እኔ")
+            var s2mp = perfect(text, "አንተ")
+            var s2fp = perfect(text, "አንቺ")
+            var s3mp = perfect(text, "እሱ")
+            var s3fp = perfect(text, "እሷ")
+            var p1p = perfect(text, "እኛ")
+            var p2p = perfect(text, "እናንተ")
+            var p3p = perfect(text, "እነሱ")
+
+            var tablep = document.getElementById('per-aff')
+            tablep.rows[1].cells[0].innerHTML = s1p
+            tablep.rows[1].cells[1].innerHTML = p1p
+            tablep.rows[2].cells[0].innerHTML = s2mp
+            tablep.rows[2].cells[1].innerHTML = p2p
+            tablep.rows[3].cells[0].innerHTML = s2fp
+            tablep.rows[4].cells[0].innerHTML = s3mp
+            tablep.rows[4].cells[1].innerHTML = p3p
+            tablep.rows[5].cells[0].innerHTML = s3fp
 
         }
 

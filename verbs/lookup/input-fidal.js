@@ -6,7 +6,7 @@ var transliterator = 'ሀ he ሁ hu ሂ hee ሃ ha ሄ hay ህ hi ሆ ho \
 ረ re ሩ ru ሪ ree ራ ra ሬ ray ር ri ሮ ro \
 ሰ se ሱ su ሲ see ሳ sa ሴ say ስ si ሶ so \
 ሸ she ሹ shu ሺ shee ሻ sha ሼ shay ሽ shi ሾ sho \
-ቀ qe ቁ qu ቂ qee ቃ qa ቄ qay ቅ qi ቆ qo \
+ቀ Ke ቁ Ku ቂ Kee ቃ Ka ቄ Kay ቅ Ki ቆ Ko \
 በ be ቡ bu ቢ bee ባ ba ቤ bay ብ bi ቦ bo \
 ተ te ቱ tu ቲ tee ታ ta ቴ tay ት ti ቶ to \
 ቸ che ቹ chu ቺ chee ቻ cha ቼ chay ች chi ቾ cho \
