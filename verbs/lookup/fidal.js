@@ -19,7 +19,7 @@ var fidal = 'ሀ ha ሁ hu ሂ hi ሃ hā ሄ hé ህ he ሆ ho \
 ወ wa ዉ wu ዊ wi ዋ wā ዌ wé ው we ዎ wo \
 ዐ ~a ዑ ~u ዒ ~i ዓ ~ā ዔ ~é ዕ ~e ዖ ~o \
 ዘ za ዙ zu ዚ zi ዛ zā ዜ zé ዝ ze ዞ zo \
-ዠ ža ዡ žu ዢ ži ዣ žā ዤ žé ዥ,ዥ že ዦ žo \
+ዠ ža ዡ žu ዢ ži ዣ žā ዤ žé ዥ že ዦ žo \
 የ ya ዩ yu ዪ yi ያ yā ዬ yé ይ ye ዮ yo \
 ደ da ዱ du ዲ di ዳ dā ዴ dé ድ de ዶ do \
 ጀ ja ጁ ju ጂ ji ጃ jā ጄ jé ጅ je ጆ jo \
