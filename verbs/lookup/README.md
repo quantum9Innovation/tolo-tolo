@@ -1,3 +1,5 @@
+<meta charset="UTF-8">
+
 # Notes on lookup
 ## Supported Verbs
 All verbs starting with 'መ-' or 'ማ-' that do not have a 'ተ' sound or begin with 'ማስ-' are supported.
